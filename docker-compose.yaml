@@ -16,13 +16,15 @@ services:
       - "traefik.http.routers.${SELFHOST}Https${SELF_DOMAIN_NAME}.tls.certresolver=le"
       - "traefik.http.routers.${SELFHOST}Https${SELF_DOMAIN_NAME}.tls=true"
       - "traefik.http.routers.${SELFHOST}Https${SELF_DOMAIN_NAME}.entrypoints=websecure"
+      - "traefik.http.services.authServer.loadbalancer.server.port=3000"
+      - "traefik.http.routers.${SELFHOST}Https${SELF_DOMAIN_NAME}.service=authServer"
 
-      # - "traefik.http.services.rtcHttpsServer.loadbalancer.server.port=3001"
-      # - "traefik.http.routers.rtcHttps${SELF_DOMAIN_NAME}.service=rtcHttpsServer"
-      # - "traefik.http.routers.rtcHttps${SELF_DOMAIN_NAME}.rule=Host(`rtc-server${SELF_DOMAIN_NAME}.abclive.cloud`)"
-      # - "traefik.http.routers.rtcHttps${SELF_DOMAIN_NAME}.tls.certresolver=le"
-      # - "traefik.http.routers.rtcHttps${SELF_DOMAIN_NAME}.tls=true"
-      # - "traefik.http.routers.rtcHttps${SELF_DOMAIN_NAME}.entrypoints=websecure"
+      - "traefik.http.services.rtcSocketServerPort.loadbalancer.server.port=3001"
+      - "traefik.http.routers.rtcSocketServer.service=rtcSocketServerPort"
+      - "traefik.http.routers.rtcSocketServer${SELF_DOMAIN_NAME}.rule=Host(`rtc-server${SELF_DOMAIN_NAME}.abclive.cloud`)"
+      - "traefik.http.routers.rtcSocketServer${SELF_DOMAIN_NAME}.tls.certresolver=le"
+      - "traefik.http.routers.rtcSocketServer${SELF_DOMAIN_NAME}.tls=true"
+      - "traefik.http.routers.rtcSocketServer${SELF_DOMAIN_NAME}.entrypoints=websecure"
 networks:
   default:
     external:
