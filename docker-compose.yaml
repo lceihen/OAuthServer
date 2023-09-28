@@ -9,8 +9,8 @@ services:
     restart: always
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.${SELFHOST}Http${SELF_DOMAIN_NAME}.rule=Host(`${SELFHOST}${SELF_DOMAIN_NAME}.abclive.cloud`)"
-      - "traefik.http.routers.${SELFHOST}Http${SELF_DOMAIN_NAME}.entrypoints=web"
+      # - "traefik.http.routers.${SELFHOST}Http${SELF_DOMAIN_NAME}.rule=Host(`${SELFHOST}${SELF_DOMAIN_NAME}.abclive.cloud`)"
+      # - "traefik.http.routers.${SELFHOST}Http${SELF_DOMAIN_NAME}.entrypoints=web"
 
       - "traefik.http.routers.${SELFHOST}Https${SELF_DOMAIN_NAME}.rule=Host(`${SELFHOST}${SELF_DOMAIN_NAME}.abclive.cloud`)"
       - "traefik.http.routers.${SELFHOST}Https${SELF_DOMAIN_NAME}.tls.certresolver=le"
