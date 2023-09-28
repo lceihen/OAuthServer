@@ -16,7 +16,7 @@ ADD . /code
 
 EXPOSE 3000
 
-EXPOSE 3001
+
 
 
 # FROM nginx:alpine

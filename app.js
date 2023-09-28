@@ -16,7 +16,7 @@ const user = require("./routes/user");
 const auth = require("./routes/auth");
 const { createAdapter } = require("@socket.io/redis-adapter");
 const { handleAuth: useRtcAuth } = require("./middleway/rtc/auth");
-const httpServer = createServer();
+// const httpServer = createServer();
 const { subRedisClient, pubRedisClient } = require("./config/redis/index");
 
 require("dotenv").config();
@@ -75,34 +75,34 @@ app.on("error", (err, ctx) => {
 // });
 //console.log()
 
-httpServer.listen(3001);
+// httpServer.listen(3001);
 
-console.log("websocket listen 3001");
+// console.log("websocket listen 3001");
 
-const io = new Server(httpServer, {
-  cors: {
-    origin: rtcOrigin,
-    credentials: true,
-  },
-});
+// const io = new Server(httpServer, {
+//   cors: {
+//     origin: rtcOrigin,
+//     credentials: true,
+//   },
+// });
 
 // 定义rtc的命名空间
-const rtcSocket = io.of("/rtc");
+// const rtcSocket = io.of("/rtc");
 
 // io.adapter(createAdapter(pubRedisClient, subRedisClient));
 
-rtcSocket.on("connection", async (socket) => {
-  // 这两个在connect初始化主要是connect的时候不会走use中间件
-  await useRtcAuth([], socket);
+// rtcSocket.on("connection", async (socket) => {
+//   // 这两个在connect初始化主要是connect的时候不会走use中间件
+//   await useRtcAuth([], socket);
 
-  await useSocketLog([], socket, rtcSocket);
+//   await useSocketLog([], socket, rtcSocket);
 
-  socket.use(async (...args) => await useRtcAuth(args, socket));
+//   socket.use(async (...args) => await useRtcAuth(args, socket));
 
-  socket.use(async (...args) => await useSocketLog(args, socket, rtcSocket));
+//   socket.use(async (...args) => await useSocketLog(args, socket, rtcSocket));
 
-  useRoomRouter(socket);
-});
+//   useRoomRouter(socket);
+// });
 
 // error-handling
 
