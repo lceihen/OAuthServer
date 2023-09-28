@@ -69,35 +69,38 @@ app.on("error", (err, ctx) => {
 
 //websocket
 
-Promise.all([pubRedisClient.connect(), subRedisClient.connect()]).then(() => {
-  httpServer.listen(3001);
+// Promise.all([pubRedisClient.connect(), subRedisClient.connect()]).then(() => {
 
-  console.log("websocket listen 3001");
+//   });
+// });
 
-  const io = new Server(httpServer, {
-    cors: {
-      origin: rtcOrigin,
-      credentials: true,
-    },
-  });
+httpServer.listen(3001);
 
-  // 定义rtc的命名空间
-  const rtcSocket = io.of("/rtc");
+console.log("websocket listen 3001");
 
-  io.adapter(createAdapter(pubRedisClient, subRedisClient));
+const io = new Server(httpServer, {
+  cors: {
+    origin: rtcOrigin,
+    credentials: true,
+  },
+});
 
-  rtcSocket.on("connection", async (socket) => {
-    // 这两个在connect初始化主要是connect的时候不会走use中间件
-    await useRtcAuth([], socket);
+// 定义rtc的命名空间
+const rtcSocket = io.of("/rtc");
 
-    await useSocketLog([], socket, rtcSocket);
+// io.adapter(createAdapter(pubRedisClient, subRedisClient));
 
-    socket.use(async (...args) => await useRtcAuth(args, socket));
+rtcSocket.on("connection", async (socket) => {
+  // 这两个在connect初始化主要是connect的时候不会走use中间件
+  await useRtcAuth([], socket);
 
-    socket.use(async (...args) => await useSocketLog(args, socket, rtcSocket));
+  await useSocketLog([], socket, rtcSocket);
 
-    useRoomRouter(socket);
-  });
+  socket.use(async (...args) => await useRtcAuth(args, socket));
+
+  socket.use(async (...args) => await useSocketLog(args, socket, rtcSocket));
+
+  useRoomRouter(socket);
 });
 
 // error-handling
