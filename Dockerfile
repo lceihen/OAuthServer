@@ -16,7 +16,7 @@ ADD . /code
 
 EXPOSE 3000
 
-EXPOSE 3001
+
 
 # FROM nginx:alpine
 # COPY nginx.conf /etc/nginx/conf.d/default.conf
