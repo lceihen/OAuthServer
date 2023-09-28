@@ -49,7 +49,7 @@ const traceing = (traceData) => {
     .catch((err) => {
       console.log(
         "err-----",
-        err.response.data,
+        err.response?.data,
         traceData.id,
         traceData.traceId,
         traceData.id.length
