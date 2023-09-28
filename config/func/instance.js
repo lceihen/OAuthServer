@@ -2,7 +2,7 @@ const { Sequelize } = require("sequelize");
 const { isProd } = require("../../utils/index");
 const { dbLogger } = require("../../utils/log");
 
-const host = isProd ? "120.24.253.52" : "127.0.0.1";
+const host = isProd ? "120.78.130.60" : "127.0.0.1";
 
 const sequelize = new Sequelize("Auth", "root", "lc9800481", {
   host: host, //数据库地址

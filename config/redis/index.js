@@ -3,7 +3,7 @@ const Redis = require("ioredis");
 const { createClient } = require("redis");
 const { isProd } = require("../../utils/index");
 
-const host = isProd ? "120.24.253.52" : "localhost";
+const host = isProd ? "120.78.130.60" : "localhost";
 
 const port = 6379;
 
