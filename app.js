@@ -81,7 +81,7 @@ console.log("websocket listen 3001");
 
 const io = new Server(httpServer, {
   cors: {
-    origin: rtcOrigin,
+    origin: "https://rtc.abclive.cloud",
     credentials: true,
   },
 });
