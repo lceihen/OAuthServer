@@ -1,5 +1,5 @@
 const { DataTypes } = require("sequelize");
-const Instance = require("../../func/instance");
+const Instance = require("../../instance");
 const Rooms = Instance.define("Rooms", {
   id: {
     type: DataTypes.STRING,

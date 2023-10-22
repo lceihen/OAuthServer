@@ -17,9 +17,4 @@ ADD . /code
 EXPOSE 3000
 
 
-
-
-# FROM nginx:alpine
-# COPY nginx.conf /etc/nginx/conf.d/default.conf
-# COPY --from=builder code/dist /usr/share/nginx/html
 CMD ["pnpm" ,"run" ,"prd"]

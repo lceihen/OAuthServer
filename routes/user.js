@@ -9,8 +9,8 @@ const {
 
 const { redis, redisExpireDate } = require("../config/redis/index");
 
-const AuthTokensModel = require("../config/Model/AuthTokens");
-const UsersModel = require("../config/Model/User");
+const AuthTokensModel = require("../config/mysql/Model/AuthTokens");
+const UsersModel = require("../config/mysql/Model/User");
 
 router.prefix("/api");
 

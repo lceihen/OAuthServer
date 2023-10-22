@@ -1,11 +1,11 @@
 const Instance = require("./instance");
 
-const Users = require("../Model/User");
-const Clients = require("../Model/Clients");
-const AuthTokens = require("../Model/AuthTokens");
-const AuthCodes = require("../Model/AuthCodes");
-const Rooms = require("../Model/rtc/Rooms");
-require("../Model/rtc/RoomUsers");
+const Users = require("./Model/User");
+const Clients = require("./Model/Clients");
+const AuthTokens = require("./Model/AuthTokens");
+const AuthCodes = require("./Model/AuthCodes");
+const Rooms = require("./Model/rtc/Rooms");
+// require("./Model/rtc/RoomUsers");
 
 const handleInitFirstUser = async () => {
   const users = await Users.findAll();

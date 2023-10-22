@@ -1,8 +1,8 @@
 const router = require("koa-router")();
-const AuthCodesModel = require("../config/Model/AuthCodes");
-const AuthTokensModel = require("../config/Model/AuthTokens");
-const ClientsModel = require("../config/Model/Clients");
-const UsersModel = require("../config/Model/User");
+const AuthCodesModel = require("../config/mysql/Model/AuthCodes");
+const AuthTokensModel = require("../config/mysql/Model/AuthTokens");
+const ClientsModel = require("../config/mysql/Model/Clients");
+const UsersModel = require("../config/mysql/Model/User");
 const { verifyPassword, handleExpiresTime } = require("../utils/index");
 const axios = require("axios");
 router.prefix("/api");

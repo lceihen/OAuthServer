@@ -1,8 +1,8 @@
 const { whiteRouterList } = require("../config/auth");
 
-const AuthTokensModel = require("../config/Model/AuthTokens");
+const AuthTokensModel = require("../config/mysql/Model/AuthTokens");
 
-const UsersModel = require("../config/Model/User");
+const UsersModel = require("../config/mysql/Model/User");
 
 const { isOutOfDate, handleParseCookieString } = require("../utils");
 

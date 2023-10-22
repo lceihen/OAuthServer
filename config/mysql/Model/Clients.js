@@ -1,28 +1,20 @@
 const { DataTypes } = require("sequelize");
-const Users = require("./User");
-const Instance = require("../func/instance");
+const Instance = require("../instance");
 
-const AuthTokens = Instance.define("AuthTokens", {
+const Clients = Instance.define("Clients", {
   id: {
     type: DataTypes.STRING,
-    defaultValue: DataTypes.UUIDV4,
     primaryKey: true,
-    allowNull: false,
-  },
-  token: {
-    type: DataTypes.STRING,
-    allowNull: false,
     defaultValue: DataTypes.UUIDV4,
   },
-  clientId: {
+
+  secret: {
     type: DataTypes.STRING,
+    defaultValue: DataTypes.UUIDV4,
     allowNull: false,
   },
-  userId: {
+  redirectUri: {
     type: DataTypes.STRING,
-  },
-  expires: {
-    type: DataTypes.DATE,
     allowNull: false,
   },
   createdAt: {
@@ -30,6 +22,14 @@ const AuthTokens = Instance.define("AuthTokens", {
     allowNull: true,
     defaultValue: DataTypes.NOW,
   },
+  name: {
+    type: DataTypes.STRING,
+    allowNull: true,
+  },
+  remark: {
+    type: DataTypes.STRING,
+    allowNull: true,
+  },
 });
 
-module.exports = AuthTokens;
+module.exports = Clients;
