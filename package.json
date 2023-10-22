@@ -1,11 +1,11 @@
 {
-  "name": "AuthServer",
+  "name": "auth-server",
   "version": "0.1.0",
   "private": true,
   "scripts": {
     "start": "node bin/www",
-    "dev": "./node_modules/.bin/nodemon bin/www",
-    "prd": " NODE_ENV=production node bin/www",
+    "dev": "cross-env NODE_ENV=development ./node_modules/.bin/nodemon bin/www",
+    "prd": "cross-env NODE_ENV=production node bin/www",
     "test": "echo \"Error: no test specified\" && exit 1",
     "push": ". ./sh/push.sh",
     "migrate": "cd ./config/Migrations && npx sequelize-cli db:migrate",
@@ -13,9 +13,11 @@
   },
   "dependencies": {
     "@elastic/elasticsearch": "7.14.1",
+    "@lceihen/mysql-utils": "^14.0.0",
     "@socket.io/redis-adapter": "^8.2.1",
     "axios": "^1.4.0",
     "cls-hooked": "^4.2.2",
+    "cross-env": "^7.0.3",
     "crypto": "^1.0.1",
     "crypto-js": "^4.1.1",
     "debug": "^4.1.1",

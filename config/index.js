@@ -5,7 +5,10 @@ const ROOM_TYPE = {
 
 const SOCKER_INSTANCE_MAP = {};
 
+const PRODUCTION_IP = "120.78.130.60";
+
 module.exports = {
   ROOM_TYPE,
   SOCKER_INSTANCE_MAP,
+  handleGetConfigByEnv,
 };

@@ -1,13 +1,13 @@
 const axios = require("axios");
-const zipkin_api_url = "http://zipkin.abclive.cloud/api/v2/spans";
+const zipkin_api_url = "https://zipkin.abclive.cloud/api/v2/spans";
 const headers = { "Content-Type": "application/json" };
 
 const post = async (url, data) => {
-  await axios(url, {
+  axios(url, {
     method: "post",
     data: JSON.stringify(data),
     headers,
-  });
+  }).catch();
 };
 
 const traceing = (traceData) => {
@@ -44,17 +44,7 @@ const traceing = (traceData) => {
   }
 
   data[0].tags = traceData;
-  post(zipkin_api_url, data)
-    .then()
-    .catch((err) => {
-      console.log(
-        "err-----",
-        err.response?.data,
-        traceData.id,
-        traceData.traceId,
-        traceData.id.length
-      );
-    });
+  post(zipkin_api_url, data);
 };
 
 module.exports = {

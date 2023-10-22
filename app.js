@@ -1,19 +1,29 @@
+require("dotenv").config({
+  path: `.env`,
+});
+require("dotenv").config({
+  path: `.env.${process.env.NODE_ENV}`,
+});
 const Koa = require("koa");
+
 const app = new Koa();
 const views = require("koa-views");
 const json = require("koa-json");
 const onerror = require("koa-onerror");
 const bodyparser = require("koa-bodyparser");
 var cors = require("koa2-cors");
+
 const { handleAuth } = require("./middleway/auth");
 const { log } = require("./middleway/log");
+
 const index = require("./routes/index");
 const user = require("./routes/user");
 const auth = require("./routes/auth");
 const { isProd } = require("./utils");
 
-require("dotenv").config();
-require("./config/mysql/init");
+const { initDataBaseModelConnect } = require("@lceihen/mysql-utils");
+
+initDataBaseModelConnect();
 
 onerror(app);
 
