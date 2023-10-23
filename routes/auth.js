@@ -201,6 +201,11 @@ router.get("/auth/token", async (ctx, next) => {
   } else if (domain.includes("localhost")) {
     domain = "localhost";
   }
+  ctx.cookies.set("token", result.token, {
+    domain: domain,
+    maxAge: 60 * 60 * 1000 * 24,
+    httpOnly: true,
+  });
   console.log("domain--------", domain);
   ctx.cookies.set("uid", id, {
     domain: domain,
@@ -208,11 +213,6 @@ router.get("/auth/token", async (ctx, next) => {
     httpOnly: true,
   });
   ctx.cookies.set("userName", userName, {
-    domain: domain,
-    maxAge: 60 * 60 * 1000 * 24,
-    httpOnly: true,
-  });
-  ctx.cookies.set("token", result.token, {
     domain: domain,
     maxAge: 60 * 60 * 1000 * 24,
     httpOnly: true,
