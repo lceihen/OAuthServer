@@ -16,6 +16,8 @@ deploy:
     - pwd
     - sed 's/servername/'"$CI_COMMIT_REF_NAME"'/g' docker-compose.yaml >docker-compose-updated.yaml
     - cat docker-compose-updated.yaml
+    - if [[ "$CI_COMMIT_REF_NAME" == "master" ]] || [[ "$CI_COMMIT_REF_NAME" == "main" ]]; then sed 's/LC-RUNCOMMAND/'["pnpm" ,"run" ,"prd"]'/g' Dockerfile > Dockerfile; else sed 's/LC-RUNCOMMAND/'["pnpm" ,"run" ,"beta"]'/g' Dockerfile >Dockerfile;  fi;
+    - cat Dockerfile
   script:
     - docker-compose -f docker-compose-updated.yaml up -d --build
 

@@ -19,5 +19,4 @@ ADD . /code
 
 EXPOSE 3000
 
-
-CMD ["pnpm" ,"run" ,"prd"]
+CMD LC-RUNCOMMAND

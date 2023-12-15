@@ -5,6 +5,7 @@
   "scripts": {
     "start": "node bin/www",
     "dev": "cross-env NODE_ENV=development ./node_modules/.bin/nodemon bin/www",
+    "beta": "cross-env NODE_ENV=beta node bin/www",
     "prd": "cross-env NODE_ENV=production node bin/www",
     "test": "echo \"Error: no test specified\" && exit 1",
     "push": ". ./sh/push.sh",
