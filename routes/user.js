@@ -16,7 +16,7 @@ router.prefix("/api");
 router.get("/user", async function (ctx, next) {
   const cookie = ctx.header.cookie;
 
-  const { token, uid } = handleParseCookieString(cookie) || {};
+  const { token, userId } = handleParseCookieString(cookie) || {};
 
   if (!token) {
     ctx.body = {
@@ -26,7 +26,7 @@ router.get("/user", async function (ctx, next) {
     return;
   }
 
-  const redisRecord = await redis.get(`token_userinfo_${uid}`);
+  const redisRecord = await redis.get(`token_userinfo_${userId}`);
 
   if (redisRecord) {
     const redisRecordObject = JSON.parse(redisRecord);
@@ -70,7 +70,7 @@ router.get("/user", async function (ctx, next) {
 
   // 设置redis过期时间为30分钟
   await redis.set(
-    `token_userinfo_${uid}`,
+    `token_userinfo_${userId}`,
     JSON.stringify(tokenRecord?.User),
     "EX",
     redisExpireDate

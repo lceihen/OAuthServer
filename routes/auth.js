@@ -207,7 +207,7 @@ router.get("/auth/token", async (ctx, next) => {
     httpOnly: true,
   });
   console.log("domain--------", domain);
-  ctx.cookies.set("uid", id, {
+  ctx.cookies.set("userId", id, {
     domain: domain,
     maxAge: 60 * 60 * 1000 * 24,
     httpOnly: true,
