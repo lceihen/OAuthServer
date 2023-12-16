@@ -8,18 +8,15 @@ deploy:
   image: docker/compose:latest
   stage: deploy
   tags:
-    - front-docker-1
+    - serve-docker-1
   before_script:
     - if [[ "$CI_COMMIT_REF_NAME" == "master" ]] || [[ "$CI_COMMIT_REF_NAME" == "main" ]]; then  echo -e "\nSELF_DOMAIN_NAME=''" >> .env; else echo -e "\nSELF_DOMAIN_NAME=-$CI_COMMIT_REF_NAME" >> .env;  fi;
-    - cat .env
-    - ls -las
-    - pwd
-    - sed 's/servername/'"$CI_COMMIT_REF_NAME"'/g' docker-compose.yaml >docker-compose-updated.yaml
-    - cat docker-compose-updated.yaml
-    - if [[ "$CI_COMMIT_REF_NAME" == "master" ]] || [[ "$CI_COMMIT_REF_NAME" == "main" ]]; then sed 's/LC-RUNCOMMAND/'["pnpm" ,"run" ,"prd"]'/g' Dockerfile > Dockerfile; else sed 's/LC-RUNCOMMAND/'["pnpm" ,"run" ,"beta"]'/g' Dockerfile >Dockerfile;  fi;
+    - sed -i 's/servername/'"$CI_COMMIT_REF_NAME"'/g' docker-compose.yaml
+    - if [[ "$CI_COMMIT_REF_NAME" == "master" ]] || [[ "$CI_COMMIT_REF_NAME" == "main" ]]; then sed -i  's/LC-RUNCOMMAND/["pnpm", "run", "prd"]/g' Dockerfile; else sed -i  's/LC-RUNCOMMAND/["pnpm", "run", "beta"]/g' Dockerfile;  fi;
     - cat Dockerfile
+    - cat docker-compose.yaml
   script:
-    - docker-compose -f docker-compose-updated.yaml up -d --build
+    - docker-compose up -d --build
 
 notification:
   stage: notification
