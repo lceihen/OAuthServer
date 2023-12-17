@@ -1,9 +1,9 @@
 const Redis = require("ioredis");
 
 const { createClient } = require("redis");
-const { isProd } = require("../../utils/index");
+const { isLocal, projectEnv } = require("../../utils/index");
 
-const host = isProd ? "120.78.130.60" : "localhost";
+const host = isLocal ? "localhost" : "120.78.130.60";
 
 const port = 6379;
 
@@ -13,11 +13,10 @@ const redisExpireDate = 30 * 60;
 const config = {
   host,
   port,
+  keyPrefix: projectEnv,
 };
 
 const redis = new Redis(config);
-const pubRedisClient = createClient(config);
-const subRedisClient = pubRedisClient.duplicate();
 
 redis.ping((err, result) => {
   if (err) {
@@ -30,6 +29,4 @@ redis.ping((err, result) => {
 module.exports = {
   redis,
   redisExpireDate,
-  pubRedisClient,
-  subRedisClient,
 };

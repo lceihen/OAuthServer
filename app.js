@@ -3,7 +3,9 @@ require("dotenv").config({
 });
 require("dotenv").config({
   path: `.env.${process.env.NODE_ENV}`,
+  override: true,
 });
+
 const Koa = require("koa");
 
 const app = new Koa();
@@ -21,9 +23,13 @@ const user = require("./routes/user");
 const auth = require("./routes/auth");
 const { isProd } = require("./utils");
 
-const { initDataBaseModelConnect } = require("@lceihen/mysql-utils");
+const {
+  initDataBaseModelConnect,
+  syncDataBase,
+} = require("@lceihen/mysql-utils");
 
 initDataBaseModelConnect();
+syncDataBase();
 
 onerror(app);
 

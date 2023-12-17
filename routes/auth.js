@@ -48,6 +48,7 @@ router.get("/auth/code", async (ctx, next) => {
   });
 
   if (!hasRecord) {
+    console.log("hasRecord", hasRecord);
     ctx.body = {
       code: "-1",
       message: "redirectUri, clientId, secret 不正确",

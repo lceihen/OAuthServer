@@ -55,6 +55,10 @@ const rtcOrigin = isProd
   ? "https://rtc.abclive.cloud"
   : "http://localhost:5173";
 
+const projectEnv = process.env.NODE_ENV;
+
+const isLocal = process.env.NODE_ENV === "development";
+
 module.exports = {
   generateRandomString,
   encryptPassword,
@@ -65,4 +69,6 @@ module.exports = {
   isProd,
   handleParseCookieString,
   rtcOrigin,
+  projectEnv,
+  isLocal,
 };
