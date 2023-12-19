@@ -13,7 +13,8 @@ services:
       - "traefik.http.routers.${SELFHOST}Https${SELF_DOMAIN_NAME}.tls.certresolver=le"
       - "traefik.http.routers.${SELFHOST}Https${SELF_DOMAIN_NAME}.tls=true"
       - "traefik.http.routers.${SELFHOST}Https${SELF_DOMAIN_NAME}.entrypoints=websecure"
-
+    volumes:
+      - /dataBlock/store/appLogs/oauthServer:/logs
 networks:
   default:
     external:
