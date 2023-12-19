@@ -39,7 +39,7 @@ const log = async (ctx, next) => {
     traceId,
     token,
     userId,
-    app: app,
+    appTag: app,
     url: ctx.url,
     body: ctx.request.body,
     method: ctx.request.method,
