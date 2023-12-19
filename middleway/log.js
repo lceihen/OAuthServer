@@ -55,6 +55,7 @@ const log = async (ctx, next) => {
     console.log("error", error);
     content.error = error;
   } finally {
+    accessLogger.info(JSON.stringify(content));
     axios(FeiShuWebHookUrl, {
       method: "post",
       data: {
