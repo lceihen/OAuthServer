@@ -21,7 +21,7 @@ const log = async (ctx, next) => {
   // 飞书错误的结构体
   let content = {};
 
-  let { traceId, token, userId, app } = handleParseCookieString(
+  let { traceId, token, userId, appTag } = handleParseCookieString(
     ctx.header.cookie
   );
 
@@ -39,7 +39,7 @@ const log = async (ctx, next) => {
     traceId,
     token,
     userId,
-    appTag: app,
+    appTag: appTag,
     url: ctx.url,
     body: ctx.request.body,
     method: ctx.request.method,

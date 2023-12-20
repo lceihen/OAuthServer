@@ -5,15 +5,6 @@ const path = require("path");
 require("winston-daily-rotate-file");
 const { asyncLocalStorage } = require("../store/asyncLocalStorage");
 
-const getTraceId = format((info) => {
-  const traceId = asyncLocalStorage.getStore()?.traceId;
-  const spanId = asyncLocalStorage.getStore()?.spanId;
-  info.traceId = traceId;
-  info.spanId = spanId;
-
-  return info;
-});
-
 function createLogger(label, type = "app") {
   return winston.createLogger({
     defaultMeta: {
@@ -21,7 +12,7 @@ function createLogger(label, type = "app") {
       // 指定日志类型，如 SQL / Request / Access
       label,
     },
-    format: format.combine(format.timestamp(), getTraceId(), format.json()),
+    format: format.combine(format.timestamp(), format.json()),
     transports: [
       //   new transports.Console(),
       new transports.DailyRotateFile({
