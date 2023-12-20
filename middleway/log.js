@@ -21,9 +21,9 @@ const log = async (ctx, next) => {
   // 飞书错误的结构体
   let content = {};
 
-  let { traceId, token, userId, appTag } = handleParseCookieString(
-    ctx.header.cookie
-  );
+  let cookie = handleParseCookieString(ctx.header.cookie);
+
+  let { traceId, token, userId, appTag } = cookie || {};
 
   console.log(ctx);
 
@@ -43,6 +43,9 @@ const log = async (ctx, next) => {
     url: ctx.url,
     body: ctx.request.body,
     method: ctx.request.method,
+    referer: ctx.request.header.referer,
+    cookie: cookie,
+    env: process.env.NODE_ENV,
   };
   try {
     await asyncLocalStorage.run({ traceId, preTraceId }, async () => {
