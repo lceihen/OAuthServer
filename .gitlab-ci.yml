@@ -4,23 +4,29 @@ stages:
   - deploy
   - notification
 
+variables:
+  APP: "authServer"
+
 deploy:
   image: docker/compose:latest
   stage: deploy
   tags:
     - serve-docker-1
   before_script:
-    - if [[ "$CI_COMMIT_REF_NAME" == "master" ]] || [[ "$CI_COMMIT_REF_NAME" == "main" ]]; then  echo -e "\nSELF_DOMAIN_NAME=''" >> .env; else echo -e "\nSELF_DOMAIN_NAME=-$CI_COMMIT_REF_NAME" >> .env;  fi;
-    - sed -i 's/servername/'"$CI_COMMIT_REF_NAME"'/g' docker-compose.yaml
-    - if [[ "$CI_COMMIT_REF_NAME" == "master" ]] || [[ "$CI_COMMIT_REF_NAME" == "main" ]]; then sed -i  's/LC-RUNCOMMAND/["pnpm", "run", "prd"]/g' Dockerfile; else sed -i  's/LC-RUNCOMMAND/["pnpm", "run", "beta"]/g' Dockerfile;  fi;
-    - cat Dockerfile
-    - cat docker-compose.yaml
+    - if [[ "$CI_COMMIT_REF_NAME" == "master" ]] || [[ "$CI_COMMIT_REF_NAME" == "main" ]]; then  export GIT_BRANCH='';
+      export CICD_HOOK_URL="https://open.feishu.cn/open-apis/bot/v2/hook/180e3142-5b21-4442-ae35-f9dc96ee29c5";
+      sed -i  's/LC-RUNCOMMAND/["pnpm", "run", "prd"]/g' ./deploy/Dockerfile;
+      else
+      export GIT_BRANCH=-$CI_COMMIT_REF_NAME ;
+      export CICD_HOOK_URL="https://open.feishu.cn/open-apis/bot/v2/hook/f0b1358b-38ce-4f01-b629-64c0d2fbe854";
+      sed -i  's/LC-RUNCOMMAND/["pnpm", "run", "beta"]/g' ./deploy/Dockerfile; fi;
   script:
-    - docker-compose up -d --build
+    - docker-compose -f ./deploy/docker-compose.yaml  up -d --build
+    - echo https://${APP}${GIT_BRANCH}.abclive.cloud
 
 notification:
   stage: notification
   tags:
     - shell-1
   script:
-    - . ./depoly/notification.sh
+    - . ./deploy/notification.sh

@@ -3,8 +3,8 @@ services:
   servername:
     container_name: ${SELFHOST}-${CI_COMMIT_REF_NAME}-${CI_COMMIT_SHORT_SHA}
     build:
-      context: .
-      dockerfile: Dockerfile
+      context: ../
+      dockerfile: ./deploy/Dockerfile
     image: ${SELFHOST}-${CI_COMMIT_REF_NAME}
     restart: always
     labels:
