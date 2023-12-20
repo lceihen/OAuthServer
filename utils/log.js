@@ -3,7 +3,7 @@ const { format, transports } = require("winston");
 const os = require("os");
 const path = require("path");
 require("winston-daily-rotate-file");
-const { asyncLocalStorage } = require("../store/asyncLocalStorage");
+// const { asyncLocalStorage } = require("../store/asyncLocalStorage");
 
 function createLogger(label, type = "app") {
   return winston.createLogger({

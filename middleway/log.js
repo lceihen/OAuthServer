@@ -68,16 +68,18 @@ const log = async (ctx, next) => {
     content.ms = endTime - startTime;
   } catch (error) {
     content.error = JSON.stringify(error.message);
-    axios(FeiShuErrorWebHookUrl, {
-      method: "post",
-      data: {
-        msg_type: "text",
-        content: {
-          text: JSON.stringify(content),
+    if (process.env.NODE_ENV !== "development") {
+      axios(FeiShuErrorWebHookUrl, {
+        method: "post",
+        data: {
+          msg_type: "text",
+          content: {
+            text: JSON.stringify(content),
+          },
         },
-      },
-      headers: { "Content-Type": "application/json" },
-    });
+        headers: { "Content-Type": "application/json" },
+      });
+    }
   } finally {
     accessLogger.info(JSON.stringify(content));
     if (process.env.NODE_ENV === "development") return;
