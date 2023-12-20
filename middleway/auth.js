@@ -19,7 +19,7 @@ const handleAuth = async (ctx, next) => {
 
   const token = queryObject.token;
 
-  if (!token || !userName) {
+  if (!token) {
     ctx.body = {
       code: "-10000",
       message: "请先登录",
@@ -31,14 +31,6 @@ const handleAuth = async (ctx, next) => {
     where: {
       token: token,
     },
-    include: [
-      {
-        model: UsersModel,
-        where: {
-          userName: userName,
-        },
-      },
-    ],
   });
 
   if (!tokenRecord) {
