@@ -56,16 +56,10 @@ app.use(
   cors({
     origin: (ctx) => {
       const referer = ctx.header.origin || ctx.header.host;
-      console.log("referer", ctx.header.origin, ctx.header.host);
-      if (process.env.NODE_ENV === "beta") {
+      if (process.env.NODE_ENV !== "development") {
         if (!referer.includes("abclive.cloud")) return null;
       }
-      if (ctx.header.origin) {
-        return ctx.header.origin;
-      }
-      if (ctx.header.host) {
-        return ctx.header.host;
-      }
+      return referer;
     },
     credentials: true,
   })
