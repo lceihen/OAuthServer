@@ -1,20 +1,19 @@
 version: "3"
 services:
-  oauthserver:
-    container_name: ${SELFHOST}-${CI_COMMIT_REF_NAME}-${CI_COMMIT_SHORT_SHA}
+  oauthWeb:
+    container_name: ${APP}-${CI_COMMIT_REF_NAME}-${CI_COMMIT_SHORT_SHA}
     build:
       context: ../
       dockerfile: ./deploy/Dockerfile
-    image: ${SELFHOST}-${CI_COMMIT_REF_NAME}
-    restart: always
+    image: ${APP}-${CI_COMMIT_REF_NAME}
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.${SELFHOST}Https${SELF_DOMAIN_NAME}.rule=Host(`${SELFHOST}${SELF_DOMAIN_NAME}.abclive.cloud`)"
-      - "traefik.http.routers.${SELFHOST}Https${SELF_DOMAIN_NAME}.tls.certresolver=le"
-      - "traefik.http.routers.${SELFHOST}Https${SELF_DOMAIN_NAME}.tls=true"
-      - "traefik.http.routers.${SELFHOST}Https${SELF_DOMAIN_NAME}.entrypoints=websecure"
-    volumes:
-      - /dataBlock/store/appLogs/oauthServer/:/code/logs
+
+      - "traefik.http.routers.${APP}Https${GIT_BRANCH}.rule=Host(`${APP}${GIT_BRANCH}.abclive.cloud`)"
+      - "traefik.http.routers.${APP}Https${GIT_BRANCH}.tls.certresolver=le"
+      - "traefik.http.routers.${APP}Https${GIT_BRANCH}.tls=true"
+      - "traefik.http.routers.${APP}Https${GIT_BRANCH}.entrypoints=websecure"
+
 networks:
   default:
     external:
