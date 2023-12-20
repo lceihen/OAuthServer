@@ -55,6 +55,11 @@ app.use(async (ctx, next) => await log(ctx, next));
 app.use(
   cors({
     origin: (ctx) => {
+      const referer = ctx.header.origin || ctx.header.host;
+      console.log("referer", ctx.header.origin, ctx.header.host);
+      if (process.env.NODE_ENV === "beta") {
+        if (!referer.includes("abclive.cloud")) return null;
+      }
       if (ctx.header.origin) {
         return ctx.header.origin;
       }
