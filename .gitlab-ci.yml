@@ -20,7 +20,7 @@ deploy:
       export GIT_BRANCH=-$CI_COMMIT_REF_NAME ;
       export CICD_HOOK_URL="https://open.feishu.cn/open-apis/bot/v2/hook/f0b1358b-38ce-4f01-b629-64c0d2fbe854";
       sed -i  's/LC-RUNCOMMAND/["pnpm", "run", "beta"]/g' ./deploy/Dockerfile; fi;
-    - sed -i  "s/lcApp/${APP}-${GIT_BRANCH}-${CI_COMMIT_SHORT_SHA}/g" ./deploy/docker-compose.yaml;
+    - sed -i  "s/lcApp/${APP}-${GIT_BRANCH}/g" ./deploy/docker-compose.yaml;
   script:
     - docker-compose -f ./deploy/docker-compose.yaml  up -d --build
     - echo https://${APP}${GIT_BRANCH}.abclive.cloud
