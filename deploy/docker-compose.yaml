@@ -1,20 +1,20 @@
 version: "3"
 services:
-  oauthserver:
+  lcApp:
     container_name: ${APP}-${CI_COMMIT_REF_NAME}-${CI_COMMIT_SHORT_SHA}
     build:
       context: ../
       dockerfile: ./deploy/Dockerfile
-    image: authserver-${CI_COMMIT_REF_NAME}
+    image: ${APP}-${CI_COMMIT_REF_NAME}
     restart: always
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.authServerHttps${SELF_DOMAIN_NAME}.rule=Host(`authServer${SELF_DOMAIN_NAME}.abclive.cloud`)"
-      - "traefik.http.routers.authServerHttps${SELF_DOMAIN_NAME}.tls.certresolver=le"
-      - "traefik.http.routers.authServerHttps${SELF_DOMAIN_NAME}.tls=true"
-      - "traefik.http.routers.authServerHttps${SELF_DOMAIN_NAME}.entrypoints=websecure"
+      - "traefik.http.routers.${APP}Https${SELF_DOMAIN_NAME}.rule=Host(`${APP}${SELF_DOMAIN_NAME}.abclive.cloud`)"
+      - "traefik.http.routers.${APP}Https${SELF_DOMAIN_NAME}.tls.certresolver=le"
+      - "traefik.http.routers.${APP}Https${SELF_DOMAIN_NAME}.tls=true"
+      - "traefik.http.routers.${APP}Https${SELF_DOMAIN_NAME}.entrypoints=websecure"
     volumes:
-      - /dataBlock/store/appLogs/oauthServer/:/code/logs
+      - /dataBlock/store/appLogs/oauthServer/app:/code/logs
 networks:
   default:
     external:
