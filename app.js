@@ -29,7 +29,7 @@ const {
 } = require("@lceihen/mysql-utils");
 
 initDataBaseModelConnect();
-syncDataBase();
+// syncDataBase();
 
 onerror(app);
 
