@@ -5,7 +5,7 @@ services:
     privileged: true
     build:
       context: ../
-      dockerfile: Dockerfile
+      dockerfile: ./Dockerfile
     image: ${APP}-${CI_COMMIT_REF_NAME}
     labels:
       - "traefik.enable=true"
