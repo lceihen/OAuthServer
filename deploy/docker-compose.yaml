@@ -1,6 +1,6 @@
 version: "3"
 services:
-  lcapp:
+  lcApp:
     container_name: ${APP}-${CI_COMMIT_REF_NAME}-${CI_COMMIT_SHORT_SHA}
     build:
       context: ../
@@ -9,7 +9,7 @@ services:
     restart: always
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.${APP}Https${SELF_DOMAIN_NAME}.rule=Host(`${APP}${SELF_DOMAIN_NAME}.abclive.cloud`)"
+      - "traefik.http.routers.${APP}Https${SELF_DOMAIN_NAME}.rule=Host(`oauthserver${SELF_DOMAIN_NAME}.abclive.cloud`)"
       - "traefik.http.routers.${APP}Https${SELF_DOMAIN_NAME}.tls.certresolver=le"
       - "traefik.http.routers.${APP}Https${SELF_DOMAIN_NAME}.tls=true"
       - "traefik.http.routers.${APP}Https${SELF_DOMAIN_NAME}.entrypoints=websecure"
