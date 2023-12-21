@@ -1,20 +1,20 @@
 version: "3"
 services:
-  teststtst:
-    container_name: ${APP}-${CI_COMMIT_REF_NAME}-${CI_COMMIT_SHORT_SHA}
-    privileged: true
+  oauthserver:
+    container_name: authserver-${CI_COMMIT_REF_NAME}-${CI_COMMIT_SHORT_SHA}
     build:
       context: ../
       dockerfile: ./deploy/Dockerfile
-    image: ${APP}-${CI_COMMIT_REF_NAME}
+    image: authserver-${CI_COMMIT_REF_NAME}
+    restart: always
     labels:
       - "traefik.enable=true"
-
-      - "traefik.http.routers.${APP}Https${GIT_BRANCH}.rule=Host(`${APP}${GIT_BRANCH}.abclive.cloud`)"
-      - "traefik.http.routers.${APP}Https${GIT_BRANCH}.tls.certresolver=le"
-      - "traefik.http.routers.${APP}Https${GIT_BRANCH}.tls=true"
-      - "traefik.http.routers.${APP}Https${GIT_BRANCH}.entrypoints=websecure"
-
+      - "traefik.http.routers.authServerHttps${SELF_DOMAIN_NAME}.rule=Host(`authServer${SELF_DOMAIN_NAME}.abclive.cloud`)"
+      - "traefik.http.routers.authServerHttps${SELF_DOMAIN_NAME}.tls.certresolver=le"
+      - "traefik.http.routers.authServerHttps${SELF_DOMAIN_NAME}.tls=true"
+      - "traefik.http.routers.authServerHttps${SELF_DOMAIN_NAME}.entrypoints=websecure"
+    volumes:
+      - /dataBlock/store/appLogs/oauthServer/:/code/logs
 networks:
   default:
     external:
