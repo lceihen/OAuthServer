@@ -4,7 +4,7 @@ services:
     container_name: ${APP}-${CI_COMMIT_REF_NAME}-${CI_COMMIT_SHORT_SHA}
     build:
       context: ../
-      dockerfile: ./Dockerfile
+      dockerfile: ./deploy/Dockerfile
     image: app-${CI_COMMIT_REF_NAME}
     labels:
       - "traefik.enable=true"
