@@ -75,6 +75,6 @@ app.on("error", (err, ctx) => {
   console.error("server error", err, ctx);
 });
 
-if (!isProd) console.log("koa listen 3000");
+if (!isProd) console.log("koa listen 3000   -");
 
 module.exports = app;
