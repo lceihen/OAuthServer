@@ -11,7 +11,7 @@ deploy:
   image: docker/compose:latest
   stage: deploy
   tags:
-    - serve-docker-1
+    - front-docker-1
   before_script:
     - if [[ "$CI_COMMIT_REF_NAME" == "master" ]] || [[ "$CI_COMMIT_REF_NAME" == "main" ]]; then  export GIT_BRANCH='';
       export CICD_HOOK_URL="https://open.feishu.cn/open-apis/bot/v2/hook/180e3142-5b21-4442-ae35-f9dc96ee29c5";
