@@ -33,7 +33,7 @@ syncDataBase();
 
 onerror(app);
 
-// middlewares
+// middlewares .
 app.use(
   bodyparser({
     enableTypes: ["json", "form", "text"],
