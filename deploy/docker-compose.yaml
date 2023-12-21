@@ -1,11 +1,11 @@
 version: "3"
 services:
-  lcApp:
+  LCAPP:
     container_name: ${APP}-${CI_COMMIT_REF_NAME}-${CI_COMMIT_SHORT_SHA}
     build:
       context: ../
       dockerfile: ./deploy/Dockerfile
-    image: app-${$APP,,}-${CI_COMMIT_REF_NAME}
+    image: IMAGENAME
     labels:
       - "traefik.enable=true"
 
