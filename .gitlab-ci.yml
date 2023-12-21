@@ -23,7 +23,7 @@ deploy:
     - sed -i  "s/lcApp/${APP}${GIT_BRANCH}/g" ./deploy/docker-compose.yaml;
   script:
     - cat ./deploy/docker-compose.yaml
-    - docker-compose -f ./deploy/docker-compose.yaml  up -d --build
+    - docker-compose   up -d --build
     - echo https://${APP}${GIT_BRANCH}.abclive.cloud
 
 notification:
